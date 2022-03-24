@@ -4,8 +4,14 @@ import planetsContext from './planetsContext';
 
 function PlanetsProvider({ children }) {
   const [data, setPlanetsData] = useState([]);
+  const [filterByName, setFilterByName] = useState({ name: '' });
+
   return (
-    <planetsContext.Provider value={ { data, setPlanetsData } }>
+    <planetsContext.Provider
+      value={
+        { data, setPlanetsData, filterByName, setFilterByName }
+      }
+    >
       {children}
     </planetsContext.Provider>
   );
