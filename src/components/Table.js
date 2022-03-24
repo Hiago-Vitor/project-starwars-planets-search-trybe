@@ -27,27 +27,14 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        { data.map(({
-          name, rotation_period: rtPeriod, orbital_period: orbtPeriod, diameter, climate,
-          gravity, terrain, surface_water: srfcWater, population, films, created, edited,
-          url,
-        }) => (
-          <tr key={ name }>
-            <td>{ name }</td>
-            <td>{ rtPeriod }</td>
-            <td>{ orbtPeriod }</td>
-            <td>{ diameter }</td>
-            <td>{ climate }</td>
-            <td>{ gravity }</td>
-            <td>{ terrain }</td>
-            <td>{ srfcWater }</td>
-            <td>{ population }</td>
-            <td>{ films }</td>
-            <td>{ created }</td>
-            <td>{ edited }</td>
-            <td>{ url }</td>
-          </tr>
-        ))}
+          .map((planet) => (
+            <tr key={ planet.name }>
+              {Object.values(planet).map((dataEachPlanet) => (
+                <td key={ dataEachPlanet }>
+                  { dataEachPlanet }
+                </td>))}
+            </tr>
+          ))}
       </tbody>
     </table>
   );
