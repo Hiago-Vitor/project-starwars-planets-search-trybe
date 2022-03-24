@@ -1,6 +1,12 @@
 import React, { useContext } from 'react';
+import planetsContext from '../context/planetsContext';
 
 function Search() {
+  const { setFilterByName } = useContext(planetsContext);
+  const handleChanges = (target) => {
+    const newFilter = { name: target.value.toLowerCase() };
+    setFilterByName(newFilter);
+  };
 
   return (
     <form>
@@ -11,6 +17,7 @@ function Search() {
           name="name"
           data-testid="name-filter"
           placeholder="Escreva o nome de um planeta"
+          onChange={ ({ target }) => handleChanges(target) }
         />
       </label>
     </form>
