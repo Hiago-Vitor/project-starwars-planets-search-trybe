@@ -3,7 +3,9 @@ import planetsContext from '../context/planetsContext';
 import fetchPlanetList from '../services/dataAPI';
 
 function Table() {
-  const { data, setPlanetsData, filterByName } = useContext(planetsContext);
+  const {
+    data, setPlanetsData, filterByName, filterByNumericValues,
+  } = useContext(planetsContext);
 
   useEffect(() => {
     async function getPlanetsData() {
@@ -21,8 +23,17 @@ function Table() {
 
   const dataFiltred = data.filter(
     (planet) => planet.name.toLowerCase().includes(filterByName.name),
-  );
-
+  ).filter((planet) => filterByNumericValues.every(({ comparison, column, value }) => {
+    switch (comparison) {
+    case 'maior que':
+      return +planet[column] > value;
+    case 'menor que':
+      return +planet[column] < value;
+    default:
+      return planet[column] === value;
+    }
+  }));
+  console.log(dataFiltred);
   return (
     <table>
       <thead>
