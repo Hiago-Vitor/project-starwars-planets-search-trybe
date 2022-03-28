@@ -3,6 +3,11 @@ import planetsContext from '../context/planetsContext';
 import fetchPlanetList from '../services/dataAPI';
 
 function Table() {
+  const headerList = [
+    'Name', 'Rotation Period', 'Orbital Period', 'Diameter', 'Climate', 'Gravity',
+    'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'URL',
+  ];
+
   const {
     data, setPlanetsData, filterByName, filterByNumericValues,
   } = useContext(planetsContext);
@@ -15,11 +20,6 @@ function Table() {
     }
     getPlanetsData();
   }, [setPlanetsData]);
-
-  const headerList = [
-    'Name', 'Rotation Period', 'Orbital Period', 'Diameter', 'Climate', 'Gravity',
-    'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'URL',
-  ];
 
   const dataFiltred = data.filter(
     (planet) => planet.name.toLowerCase().includes(filterByName.name),
