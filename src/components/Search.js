@@ -9,8 +9,7 @@ function Search() {
   };
 
   return (
-    <form>
-      <label htmlFor="user">
+      <label htmlFor="name">
         Projeto Star Wars - Trybe
         <input
           type="text"
