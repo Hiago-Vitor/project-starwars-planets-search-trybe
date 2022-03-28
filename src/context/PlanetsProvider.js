@@ -7,11 +7,18 @@ function PlanetsProvider({ children }) {
   const [filterByName, setFilterByName] = useState({ name: '' });
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
+  const gettersAndSetters = {
+    data,
+    setPlanetsData,
+    filterByName,
+    setFilterByName,
+    filterByNumericValues,
+    setFilterByNumericValues,
+  };
+
   return (
     <planetsContext.Provider
-      value={
-        { data, setPlanetsData, filterByName, setFilterByName }
-      }
+      value={ gettersAndSetters }
     >
       {children}
     </planetsContext.Provider>
