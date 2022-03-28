@@ -1,7 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import planetsContext from '../context/planetsContext';
 
 function Search() {
+  const {
+    setFilterByName, filterByNumericValues, setFilterByNumericValues,
+  } = useContext(planetsContext);
+
+  const [numericFilter, setNumericFilter] = useState(
+    { column: 'population', comparison: 'maior que', value: 0 },
+  );
 
   const comparisons = ['maior que', 'menor que', 'igual a'];
 
@@ -9,12 +16,25 @@ function Search() {
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
   ];
 
-  const handleChanges = (target) => {
-    const newFilter = { name: target.value.toLowerCase() };
-    setFilterByName(newFilter);
+  const handleSubmit = () => {
+    setFilterByNumericValues([...filterByNumericValues, numericFilter]);
   };
 
+  const handleChanges = (target) => {
+    switch (target) {
+    case target.name === 'name':
+      return setFilterByName({ name: target.value.toLowerCase() });
+    default:
+      return setNumericFilter({ ...numericFilter, [target.name]: target.value });
+    }
+  };
   return (
+    <form
+      onSubmit={ (event) => {
+        event.preventDefault();
+        handleSubmit();
+      } }
+    >
       <label htmlFor="name">
         Projeto Star Wars - Trybe
         <input
@@ -30,6 +50,8 @@ function Search() {
         <select
           data-testid="column-filter"
           name="column"
+          value={ numericFilter.column }
+          onChange={ ({ target }) => handleChanges(target) }
         >
           { columns.map((column) => (<option key={ column }>{ column }</option>))}
         </select>
@@ -39,6 +61,8 @@ function Search() {
         <select
           data-testid="comparison-filter"
           name="comparison"
+          value={ numericFilter.comparison }
+          onChange={ ({ target }) => handleChanges(target) }
         >
           { comparisons.map(
             (comparison) => (<option key={ comparison }>{ comparison }</option>),
@@ -48,7 +72,9 @@ function Search() {
       <input
         data-testid="value-filter"
         type="number"
+        value={ numericFilter.value }
         name="value"
+        onChange={ ({ target }) => handleChanges(target) }
       />
       <button type="submit" data-testid="button-filter">Filtrar</button>
     </form>
