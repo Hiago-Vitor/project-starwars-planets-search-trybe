@@ -26,14 +26,14 @@ function Table() {
   ).filter((planet) => filterByNumericValues.every(({ comparison, column, value }) => {
     switch (comparison) {
     case 'maior que':
-      return +planet[column] > value;
+      return Number(planet[column]) > value;
     case 'menor que':
-      return +planet[column] < value;
+      return Number(planet[column]) < value;
     default:
       return planet[column] === value;
     }
   }));
-  console.log(dataFiltred);
+
   return (
     <table>
       <thead>
