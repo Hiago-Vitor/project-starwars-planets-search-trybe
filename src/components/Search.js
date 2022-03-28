@@ -47,7 +47,10 @@ function Search() {
           value={ numericFilter.column }
           onChange={ ({ target }) => handleChanges(target) }
         >
-          { columns.map((column) => (<option key={ column }>{ column }</option>))}
+          { columns.filter((columnFiltred) => filterByNumericValues.every(
+            ({ column }) => columnFiltred !== column,
+          ))
+            .map((column) => (<option key={ column }>{ column }</option>))}
         </select>
       </label>
       <label htmlFor="comparison">
