@@ -16,23 +16,15 @@ function Search() {
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
   ];
 
-  const handleSubmit = () => {
-    setFilterByNumericValues([...filterByNumericValues, numericFilter]);
+  const handleChanges = (target) => {
+    setNumericFilter({ ...numericFilter, [target.name]: target.value });
   };
 
-  const handleChanges = (target) => {
-    switch (target) {
-    case target.name === 'name':
-      return setFilterByName({ name: target.value.toLowerCase() });
-    default:
-      return setNumericFilter({ ...numericFilter, [target.name]: target.value });
-    }
-  };
   return (
     <form
       onSubmit={ (event) => {
         event.preventDefault();
-        handleSubmit();
+        setFilterByNumericValues([...filterByNumericValues, numericFilter]);
       } }
     >
       <label htmlFor="name">
@@ -42,7 +34,9 @@ function Search() {
           name="name"
           data-testid="name-filter"
           placeholder="Escreva o nome de um planeta"
-          onChange={ ({ target }) => handleChanges(target) }
+          onChange={
+            ({ target }) => setFilterByName({ name: target.value.toLowerCase() })
+          }
         />
       </label>
       <label htmlFor="column">
