@@ -5,6 +5,7 @@ import planetsContext from './planetsContext';
 function PlanetsProvider({ children }) {
   const [data, setPlanetsData] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
   return (
     <planetsContext.Provider
