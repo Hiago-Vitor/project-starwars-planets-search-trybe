@@ -28,7 +28,7 @@ function Currentfilters() {
               type="button"
               onClick={ () => removeFilter(currentValue) }
             >
-              ❌
+              <span role="img" aria-label="button">❌</span>
             </button>
           </p>
         ))
