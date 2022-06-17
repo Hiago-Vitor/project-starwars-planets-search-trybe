@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import planetsContext from '../context/planetsContext';
-import fetchPlanetList from '../services/dataAPI';
 
 function Table() {
   const headerList = [
@@ -9,17 +8,8 @@ function Table() {
   ];
 
   const {
-    data, setPlanetsData, filterByName, filterByNumericValues,
+    data, filterByName, filterByNumericValues,
   } = useContext(planetsContext);
-
-  useEffect(() => {
-    async function getPlanetsData() {
-      const listPlanets = await fetchPlanetList();
-      listPlanets.map((planet) => delete planet.residents);
-      setPlanetsData(listPlanets);
-    }
-    getPlanetsData();
-  }, [setPlanetsData]);
 
   const dataFiltred = data.filter(
     (planet) => planet.name.toLowerCase().includes(filterByName.name),
@@ -38,17 +28,26 @@ function Table() {
     <table>
       <thead>
         <tr>
-          { headerList.map((header) => <th key={ header }>{ header }</th>)}
+          {headerList.map((header) => <th key={ header }>{header}</th>)}
         </tr>
       </thead>
       <tbody>
-        { dataFiltred
-          .map((planet) => (
-            <tr key={ planet.name }>
-              {Object.values(planet).map((dataEachPlanet) => (
-                <td key={ dataEachPlanet }>
-                  { dataEachPlanet }
-                </td>))}
+        {dataFiltred
+          .map((planet, i) => (
+            <tr key={ i }>
+              <td data-testid="planet-name">{planet.name}</td>
+              <td>{planet.rotation_period}</td>
+              <td>{planet.orbital_period}</td>
+              <td>{planet.diameter}</td>
+              <td>{planet.climate}</td>
+              <td>{planet.gravity}</td>
+              <td>{planet.terrain}</td>
+              <td>{planet.surface_water}</td>
+              <td>{planet.population}</td>
+              <td>{planet.films}</td>
+              <td>{planet.created}</td>
+              <td>{planet.edited}</td>
+              <td>{planet.url}</td>
             </tr>
           ))}
       </tbody>
