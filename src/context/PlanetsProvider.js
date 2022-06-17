@@ -11,13 +11,6 @@ function PlanetsProvider({ children }) {
   const [order, setOrder] = useState({ column: 'name', sort: 'ASC' });
   const DOWNWARD = -1;
 
-  const orderName = (planets) => {
-    if (order.sort === 'ASC') {
-      return planets.sort((a, b) => (a.name > b.name ? 1 : DOWNWARD));
-    }
-    return planets.sort((a, b) => (a.name < b.name ? 1 : DOWNWARD));
-  };
-
   const orderByNumericFilter = ({ column, sort }) => {
     if (sort === 'ASC') {
       return data.sort((a, b) => (Number(a[column]) > Number(b[column]) ? 1 : DOWNWARD));
@@ -33,7 +26,7 @@ function PlanetsProvider({ children }) {
     const getPlanets = async () => {
       const listPlanets = await fetchPlanetList();
       listPlanets.map((planet) => delete planet.residents);
-      setPlanetsData(orderName(listPlanets));
+      setPlanetsData(listPlanets);
     };
     getPlanets();
   }, []);
@@ -47,7 +40,6 @@ function PlanetsProvider({ children }) {
     setFilterByNumericValues,
     order,
     setOrder,
-    orderName,
     orderByNumericFilter,
   };
 
