@@ -74,13 +74,6 @@ function Search() {
         onChange={ ({ target }) => handleChanges(target) }
       />
       <button type="submit" data-testid="button-filter">Filtrar</button>
-      <button
-        type="button"
-        data-testid="button-remove-filters"
-        onClick={ () => setFilterByNumericValues([]) }
-      >
-        Remover Filtros
-      </button>
     </form>
   );
 }
