@@ -9,10 +9,8 @@ import PlanetsProvider from './context/PlanetsProvider';
 function App() {
   return (
     <PlanetsProvider>
-
       <Search />
       <Order />
-
       <Currentfilters />
       <Table />
     </PlanetsProvider>
