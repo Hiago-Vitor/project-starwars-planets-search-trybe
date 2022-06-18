@@ -13,10 +13,10 @@ function Currentfilters() {
   return (
     <section>
       {
-        filterByNumericValues.map((currentValue) => (
+        filterByNumericValues.map((currentValue, index) => (
           <p
             data-testid="filter"
-            key={ currentValue.column }
+            key={ index }
           >
             { currentValue.column }
             {' '}

@@ -50,7 +50,7 @@ function Search() {
           { columns.filter((columnFiltred) => filterByNumericValues.every(
             ({ column }) => columnFiltred !== column,
           ))
-            .map((column) => (<option key={ column }>{ column }</option>))}
+            .map((column, index) => (<option key={ index }>{ column }</option>))}
         </select>
       </label>
       <label htmlFor="comparison">
@@ -62,7 +62,7 @@ function Search() {
           onChange={ ({ target }) => handleChanges(target) }
         >
           { comparisons.map(
-            (comparison) => (<option key={ comparison }>{ comparison }</option>),
+            (comparison, index) => (<option key={ index }>{ comparison }</option>),
           )}
         </select>
       </label>

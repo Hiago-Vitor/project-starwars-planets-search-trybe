@@ -3,7 +3,7 @@ import planetsContext from '../context/planetsContext';
 
 function Order() {
   const {
-    orderByNumericFilter, setFilterByNumericValues,
+    orderByAscOrDesc, setFilterByNumericValues,
   } = useContext(planetsContext);
 
   const [columnsOrder, setColumnsOrder] = useState({ column: 'population', sort: 'ASC' });
@@ -21,7 +21,7 @@ function Order() {
   };
 
   const handleClick = () => {
-    orderByNumericFilter(columnsOrder);
+    orderByAscOrDesc(columnsOrder);
   };
 
   return (
@@ -39,8 +39,8 @@ function Order() {
           onChange={ handleChanges }
         >
           {columns
-            .map((column, i) => (
-              <option key={ i }>{column}</option>
+            .map((column, index) => (
+              <option key={ index }>{column}</option>
             ))}
         </select>
       </label>
