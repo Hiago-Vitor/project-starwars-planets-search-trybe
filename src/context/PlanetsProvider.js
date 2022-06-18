@@ -11,7 +11,7 @@ function PlanetsProvider({ children }) {
   const [order, setOrder] = useState({ column: 'name', sort: 'ASC' });
   const DOWNWARD = -1;
 
-  const orderByNumericFilter = ({ column, sort }) => {
+  const orderByAscOrDesc = ({ column, sort }) => {
     if (sort === 'ASC') {
       return data.sort((a, b) => (Number(a[column]) > Number(b[column]) ? 1 : DOWNWARD));
     }
@@ -20,6 +20,26 @@ function PlanetsProvider({ children }) {
       if (a[column] === 'unknown') return DOWNWARD;
       return (Number(a[column]) < Number(b[column]) ? 1 : DOWNWARD);
     });
+  };
+
+  const filterData = () => {
+    if (data) {
+      return data.filter(
+        (planet) => planet.name.toLowerCase().includes(filterByName.name),
+      )
+        .filter((planet) => filterByNumericValues.every(
+          ({ comparison, column, value }) => {
+            switch (comparison) {
+            case 'maior que':
+              return Number(planet[column]) > value;
+            case 'menor que':
+              return Number(planet[column]) < value;
+            default:
+              return planet[column] === value;
+            }
+          },
+        ));
+    }
   };
 
   useEffect(() => {
@@ -40,7 +60,8 @@ function PlanetsProvider({ children }) {
     setFilterByNumericValues,
     order,
     setOrder,
-    orderByNumericFilter,
+    orderByAscOrDesc,
+    filterData,
   };
 
   return (
